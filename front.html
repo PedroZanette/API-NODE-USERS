@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <p>Nome</p>
+    <input type="text" name="" id="name">
+    <p>Senha</p>
+    <input type="text" name="" id="password">
+    <p>Profissão</p>
+    <input type="text" name="" id="profissao">
+    <p>Ganhos</p>
+    <input type="text" name="" id="earning">
+    
+    <button onclick="criarFrangoDoG()">
+        Cadastrar
+    </button>
+
+    <p id="frangoDoG"></p>
+
+    <script>
+        async function pegarFrangoDoG () {
+            const resposta = await fetch('http://localhost:3333/frangodog', {
+                method: 'GET'
+            })
+
+            const frangoDoGs = await resposta.json();
+            console.log(frangoDoGs);
+            const frangoDoG = document.getElementById('frangoDoG');
+            frangoDoG.innerHTML = frangoDoGs[0].name;
+
+        };
+        pegarFrangoDoG();
+
+        async function criarFrangoDoG () {
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('password').value;
+            const profissao = document.getElementById('profissao').value;
+            const earning = document.getElementById('earning').value;
+
+            const frangoDoG = {
+                "name": name,
+                "password": password,
+                "profissao": profissao,
+                "earning": earning
+            }
+            const repota = await fetch('http://localhost:3333/frangodog', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(frangoDoG) 
+            });
+            
+            await pegarFrangoDoG();
+        }
+    </script>
+</body>
+</html>
