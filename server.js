@@ -1,10 +1,10 @@
 
 import { fastify } from 'fastify'
 import cors from '@fastify/cors'
-import { DatabasePostgres } from './database-postgres.js'
+import { FrangoDoGAll } from './database-postgres.js'
 
 const server = fastify();
-const databasePostgres = new DatabasePostgres;
+const databasePostgres = new FrangoDoGAll;
 
 // CORS
 server.register(cors, {
@@ -15,31 +15,32 @@ server.register(cors, {
 // ENDPOINTS (CRUD):
 
 // CREATE
-server.post('/users', async (request, reply) => {
+server.post('/frangodog', async (request, reply) => {
     const body = request.body;
-    await databasePostgres.createUser(body);
+    console.log(body);
+    await databasePostgres.createFrangoDoG(body);
     return reply.status(201).send();
 })
 
 // READE
-server.get('/users', async () => {
-    const users = await databasePostgres.listUsers();
+server.get('/frangodog', async () => {
+    const users = await databasePostgres.listFrangoDoG();
     return users;
 });
 
 // UPDATE
-server.put('/users/:id', async (request, reply) => {
+server.put('/frangodog/:id', async (request, reply) => {
     const userID = request.params.id;
     const body = request.body;
-    await databasePostgres.updateUser(userID, body);
+    await databasePostgres.updateFrangoDoG(userID, body);
 
     return reply.status(204).send();
 })
 
 // DELETE
-server.delete('/users/:id', async (request, reply) => {
+server.delete('/frangodog/:id', async (request, reply) => {
     const userID = request.params.id;
-    await databasePostgres.deleteUser(userID);
+    await databasePostgres.deleteFrangoDoG(userID);
 
     return reply.status(204).send();
 })

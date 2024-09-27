@@ -1,38 +1,42 @@
 import { randomUUID } from "crypto";
 import { sql } from './db.js';
 
-export class DatabasePostgres { 
-  async listUsers() {
-    const users = await sql`select * from users`;
-    return users;
+export class FrangoDoGAll { 
+  async listFrangoDoG() {
+    const frangoDoG = await sql`select * from frangoDoG`;
+    return frangoDoG;
   }
 
-  async createUser(user) {
+  async createFrangoDoG(frangoDoG) {
+    console.log('FRANGO', frangoDoG);
     const id = randomUUID();
     console.log('id', id);
-    const name = user.name;
-    const password = user.password;
-    const profile = user.profile;
+    const name = frangoDoG.name;
+    const password = frangoDoG.password;
+    const profissao = frangoDoG.profissao;
+    const earning = frangoDoG.earning;
     
-    await sql`insert into users (id, name, password, profile)
-    values (${id}, ${name}, ${password}, ${profile})`
+    await sql`insert into frangoDoG (id, name, password, profissao, earning)
+    values (${id}, ${name}, ${password}, ${profissao}, ${earning})`
   }
 
-  async updateUser(id, user) {
-    const name = user.name;
-    const password = user.password;
-    const profile = user.profile;
+  async updateFrangoDoG(id, frangoDoG) {
+    const name = frangoDoG.name;
+    const password = frangoDoG.password;
+    const profissao = frangoDoG.profissao;
+    const earning = frangoDoG.earning;
 
-    await sql`update users set 
+    await sql`update frangoDoG set 
         name = ${name},
         password = ${password},
-        profile = ${profile}
+        profissao = ${profissao},
+        earning = ${earning}
         where id = ${id}
     `;
   }
 
-  async deleteUser(id) {
-    await sql`delete from users where id = ${id}`
+  async deleteFrangoDoG(id) {
+    await sql`delete from frangoDoG where id = ${id}`
   }
 
 }
