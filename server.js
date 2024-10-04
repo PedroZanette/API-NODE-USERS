@@ -18,7 +18,7 @@ server.register(cors, {
 server.post('/frangodog', async (request, reply) => {
     const body = request.body;
     console.log(body);
-    
+
     let error = {}
 
     if(!body.name){
@@ -56,9 +56,36 @@ server.get('/frangodog', async () => {
 server.put('/frangodog/:id', async (request, reply) => {
     const userID = request.params.id;
     const body = request.body;
-    await databasePostgres.updateFrangoDoG(userID, body);
 
-    return reply.status(204).send();
+    let error = {}
+
+    if(!body.name){
+        error.name = 'Faltou o nome'
+    }
+
+    if(!body.password){
+        error.password = 'Faltou a senha'
+    }
+
+    if(!body.profissao){
+        error.profissao = 'Faltou a profissao'
+    }
+
+    if(!body.earning){
+        error.earning = 'Faltou os earning'
+    }
+
+    if(!userID) {
+        error.userID = 'Faltou o ID'
+    }
+
+    if(body.name && body.password && body.profissao && body.earning  && userID){
+        await databasePostgres.updateFrangoDoG(userID, body);
+        return reply.status(201).send("Fez bom");
+    } else {
+        return reply.status(400).send(error);
+    }
+
 })
 
 // DELETE
