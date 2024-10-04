@@ -18,8 +18,32 @@ server.register(cors, {
 server.post('/frangodog', async (request, reply) => {
     const body = request.body;
     console.log(body);
-    await databasePostgres.createFrangoDoG(body);
-    return reply.status(201).send();
+    
+    let error = {}
+
+    if(!body.name){
+        error.name = 'Faltou o nome'
+    }
+
+    if(!body.password){
+        error.password = 'Faltou a senha'
+    }
+
+    if(!body.profissao){
+        error.profissao = 'Faltou a profissao'
+    }
+
+    if(!body.earning){
+        error.earning = 'Faltou os earning'
+    }
+
+    if(body.name && body.password && body.profissao && body.earning){
+        await databasePostgres.createFrangoDoG(body);
+        return reply.status(201).send("Fez bom");
+    } else {
+        return reply.status(400).send(error);
+    }
+    
 })
 
 // READE

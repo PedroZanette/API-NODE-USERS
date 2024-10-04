@@ -9,14 +9,14 @@ POST http://localhost:3333/frangodog
 Content-Type: application/json
 
 {
-    "name": "Proletario sem Fossa",
-    "password": "54321",
-    "profissao": "PROLETARIADO DO G",
-    "earning": "R$859,22"
+    "name": "Exemplo 2",
+    "password": "78432",
+    "profissao": "Jogador DO G",
+    "earning": "R$349812,22"
 }
 
 ###
-
+ 
 PUT http://localhost:3333/frangodog/c6f0d3ab-a378-4baa-b500-19e749d569fd
 Content-Type: application/json
 

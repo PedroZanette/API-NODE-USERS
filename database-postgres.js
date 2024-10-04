@@ -14,7 +14,7 @@ export class FrangoDoGAll {
     const name = frangoDoG.name;
     const password = frangoDoG.password;
     const profissao = frangoDoG.profissao;
-    const earning = frangoDoG.earning;
+        const earning = frangoDoG.earning;
     
     await sql`insert into frangoDoG (id, name, password, profissao, earning)
     values (${id}, ${name}, ${password}, ${profissao}, ${earning})`
